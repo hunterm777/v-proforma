@@ -19,7 +19,10 @@ export function dollars(c: number): string {
 }
 
 /** "$1,234" from cents. */
-export const usd = (c: number): string => (c < 0 ? `-$${dollars(-c)}` : `$${dollars(c)}`);
+export function usd(c: number): string {
+  const d = dollars(Math.abs(c));
+  return c < 0 && d !== "0" ? `-$${d}` : `$${d}`;
+}
 
 /** Exact dollars and cents from cents: "$1,234.56". */
 export function usdExact(c: number): string {
