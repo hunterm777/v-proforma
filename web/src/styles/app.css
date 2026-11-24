@@ -122,11 +122,13 @@ table.sens th.corner { font-size: 10px; text-transform: none; }
 
 /* Audit trail */
 .audit {
-  position: fixed; top: 0; right: 0; bottom: 0; z-index: 10; width: min(760px, 100vw); overflow-y: auto;
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 10; width: min(920px, 100vw); overflow-y: auto;
   background: var(--surface); border-left: 1px solid var(--border); padding: var(--s2); box-shadow: -12px 0 32px rgba(0, 0, 0, 0.45);
 }
 .audit-head { display: flex; justify-content: space-between; align-items: start; gap: var(--s2); margin-bottom: var(--s1); }
 .audit-head p { margin: 2px 0 0; font-size: 12px; }
+.audit table.view td.l { white-space: normal; overflow-wrap: anywhere; min-width: 96px; }
+.audit table.view td.detail { min-width: 180px; }
 
 footer { margin-top: var(--s4); padding-top: var(--s2); border-top: 1px solid var(--border); color: var(--text-2); font-size: 12px; }
 footer p { margin: 0; }
