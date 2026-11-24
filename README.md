@@ -4,7 +4,7 @@
 
 **[Open proforma](https://hunterm777.github.io/v-proforma/)** · runs entirely in your browser; deal files never leave your machine.
 
-<!-- demo GIF: docs/demo.gif -->
+![proforma: annual cash flow, a click on year-3 NOI opening its audit trail, the waterfall and a sensitivity table](docs/demo.gif)
 
 proforma is an open-source commercial real estate underwriting engine. A rent
 roll and deal assumptions go in; lease-by-lease cash flows, NOI, debt service,
