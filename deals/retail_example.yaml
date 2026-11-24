@@ -1,0 +1,154 @@
+# Example deal: grocery-anchored neighborhood center. Made-up numbers.
+# Two market profiles: anchor and in-line shop space. The equity waterfall is
+# the PRD's five-tier example.
+property:
+  name: Willow Creek Marketplace
+  type: retail
+  rentable_sf: 86500
+  start_date: 2027-01-01
+  hold_months: 120
+rent_roll:
+  - id: R1
+    tenant: Greenleaf Grocers
+    suite: "100"
+    sf: 48000
+    start: 2017-06-01
+    expiry: 2032-05-31
+    rent_psf_yr: 14.25
+    steps: { type: fixed, amount_psf_yr: 0.50 }
+    recovery: anchor_nnn
+    space_type: anchor
+  - id: R2
+    tenant: Main Street Pharmacy
+    suite: "110"
+    sf: 12000
+    start: 2020-02-01
+    expiry: 2030-01-31
+    rent_psf_yr: 22.00
+    steps: { type: percent, rate: 0.02 }
+    recovery: { type: nnn }
+    space_type: inline
+  - id: R3
+    tenant: Bayside Fitness
+    suite: "120"
+    sf: 9000
+    start: 2023-08-01
+    expiry: 2033-07-31
+    rent_psf_yr: 19.50
+    steps: { type: percent, rate: 0.025 }
+    free_rent_months: 0
+    recovery: { type: nnn }
+    space_type: inline
+  - id: R4
+    tenant: Juniper Nail Studio
+    suite: "130"
+    sf: 2400
+    start: 2024-05-01
+    expiry: 2029-04-30
+    rent_psf_yr: 31.00
+    steps: { type: percent, rate: 0.03 }
+    recovery: { type: modified_gross, lines: [taxes, insurance] }
+    space_type: inline
+  - id: R5
+    tenant: Canyon Burrito
+    suite: "140"
+    sf: 3100
+    start: 2021-11-01
+    expiry: 2028-10-31
+    rent_psf_yr: 33.50
+    steps: { type: percent, rate: 0.03 }
+    recovery: { type: nnn }
+    space_type: inline
+  - id: R6
+    tenant: First Harbor Bank
+    suite: "150"
+    sf: 4000
+    start: 2025-09-01
+    expiry: 2035-08-31
+    rent_psf_yr: 36.00
+    steps: { type: fixed, amount_psf_yr: 1.00 }
+    recovery: { type: nnn }
+    space_type: inline
+  - id: R7
+    tenant: Pine Dental Group
+    suite: "160"
+    sf: 2800
+    start: 2026-03-01
+    expiry: 2031-02-28
+    rent_psf_yr: 30.00
+    steps: { type: percent, rate: 0.03 }
+    free_rent_months: 2
+    recovery: { type: nnn }
+    space_type: inline
+  - id: R8
+    tenant: Sprout Kids Academy
+    suite: "170"
+    sf: 5200
+    start: 2027-03-01
+    expiry: 2034-02-28
+    rent_psf_yr: 24.00
+    steps: { type: percent, rate: 0.025 }
+    free_rent_months: 3
+    recovery: { type: nnn }
+    space_type: inline
+recoveries:
+  anchor_nnn: { type: nnn, cap_controllable_pct: 0.04 }
+market:
+  - id: anchor
+    market_rent_psf_yr: 15.50
+    rent_growth: 0.025
+    renewal_probability: 0.80
+    downtime_months: 12
+    term_months: 120
+    new: { free_rent_months: 6, ti_psf: 30.0, lc_pct: 0.04 }
+    renewal: { free_rent_months: 0, ti_psf: 5.0, lc_pct: 0.02 }
+  - id: inline
+    market_rent_psf_yr: 28.00
+    rent_growth: 0.03
+    renewal_probability: 0.65
+    downtime_months: 8
+    term_months: 60
+    new: { free_rent_months: 4, ti_psf: 35.0, lc_pct: 0.06 }
+    renewal: { free_rent_months: 1, ti_psf: 5.0, lc_pct: 0.03 }
+opex:
+  management_fee_pct: 0.04
+  lines:
+    - { id: taxes, name: Real estate taxes, amount_yr: 365000, growth: 0.03, recoverable: true }
+    - { id: insurance, name: Insurance, amount_yr: 78000, growth: 0.045, recoverable: true }
+    - { id: cam, name: Common area maintenance, amount_yr: 290000, growth: 0.03, recoverable: true, controllable: true }
+    - { id: admin, name: Non-recoverable administration, amount_yr: 35000, growth: 0.03, recoverable: false }
+revenue:
+  general_vacancy_pct: 0.04
+  credit_loss_pct: 0.01
+capital:
+  price: 24000000
+  closing_costs: 480000
+  reserves_per_sf_yr: 0.20
+  capex:
+    - { id: parking_lot, name: Parking lot resurfacing, month: 14, amount: 310000 }
+debt:
+  sizing: { max_ltv: 0.65, min_dscr: 1.30, min_debt_yield: 0.09 }
+  rate: { fixed: 0.0585 }
+  io_months: 12
+  amortization_years: 30
+  origination_fee_pct: 0.01
+  prepayment_penalty_pct: [0.05, 0.04, 0.03, 0.02, 0.01, 0.0]
+exit:
+  cap_rate: 0.0700
+  selling_costs_pct: 0.02
+equity:
+  contributions: { lp: 0.90, gp: 0.10 }
+  tiers:
+    - name: Return of capital
+      split: pro_rata
+    - name: Preferred return
+      hurdle: { type: irr, rate: 0.08, compounding: annual }
+      split: pro_rata
+    - name: GP catch-up
+      split: { lp: 0.0, gp: 1.0 }
+      until: { gp_share_of_profits: 0.20 }
+    - name: Promote 1
+      hurdle: { type: irr, rate: 0.12 }
+      split: { lp: 0.80, gp: 0.20 }
+    - name: Promote 2
+      split: { lp: 0.70, gp: 0.30 }

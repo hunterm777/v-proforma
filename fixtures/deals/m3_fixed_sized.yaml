@@ -1,0 +1,43 @@
+# M3 fixture: the M1 property with a fixed-rate loan sized by LTV, DSCR and debt yield.
+# 24 months interest only, then 30-year amortization. Made-up numbers.
+property:
+  name: M3 Fixed-Rate Loan
+  type: industrial
+  rentable_sf: 250000
+  start_date: 2027-01-01
+  hold_months: 120
+rent_roll:
+  - id: L1
+    tenant: Northfield Supply Co
+    suite: "100"
+    sf: 250000
+    start: 2025-07-01
+    expiry: 2040-06-30
+    rent_psf_yr: 7.25
+    steps: { type: percent, rate: 0.03 }
+    recovery: nnn
+recoveries:
+  nnn: { type: nnn }
+opex:
+  management_fee_pct: 0.03
+  lines:
+    - { id: taxes, name: Real estate taxes, amount_yr: 412500, growth: 0.03, recoverable: true }
+    - { id: insurance, name: Insurance, amount_yr: 87500, growth: 0.04, recoverable: true }
+    - { id: cam, name: Common area maintenance, amount_yr: 150000, growth: 0.03, recoverable: true, controllable: true }
+revenue:
+  general_vacancy_pct: 0.02
+  credit_loss_pct: 0.0
+capital:
+  price: 30750000
+  closing_costs: 461250
+  reserves_per_sf_yr: 0.15
+exit:
+  cap_rate: 0.0625
+  selling_costs_pct: 0.02
+debt:
+  sizing: { max_ltv: 0.65, min_dscr: 1.25, min_debt_yield: 0.08 }
+  rate: { fixed: 0.0625 }
+  io_months: 24
+  amortization_years: 30
+  origination_fee_pct: 0.01
+  prepayment_penalty_pct: [0.05, 0.04, 0.03, 0.02, 0.01, 0.0]

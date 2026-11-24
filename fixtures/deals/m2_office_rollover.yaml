@@ -1,0 +1,95 @@
+# M2 fixture: five-tenant office with rollover and every recovery type.
+# Harbor Legal expires mid-month and rolls twice inside the hold (36-month
+# speculative terms). Delta Analytics starts after the analysis start.
+# Made-up numbers. Checked against an independent reference model.
+property:
+  name: M2 Five-Tenant Office
+  type: office
+  rentable_sf: 100000
+  start_date: 2027-01-01
+  hold_months: 84
+rent_roll:
+  - id: T1
+    tenant: Harbor Legal
+    suite: "300"
+    sf: 30000
+    start: 2022-03-15
+    expiry: 2028-03-14
+    rent_psf_yr: 38.00
+    steps: { type: fixed, amount_psf_yr: 0.75 }
+    recovery: { type: base_year, year: 2022 }
+    space_type: office
+    market: { term_months: 36, renewal_probability: 0.70 }
+  - id: T2
+    tenant: Pinecrest Advisors
+    suite: "200"
+    sf: 20000
+    start: 2025-01-01
+    expiry: 2031-12-31
+    rent_psf_yr: 41.50
+    steps: { type: percent, rate: 0.025 }
+    recovery: { type: expense_stop, stop_psf_yr: 12.50 }
+    space_type: office
+  - id: T3
+    tenant: Delta Analytics
+    suite: "400"
+    sf: 15000
+    start: 2027-04-01
+    expiry: 2034-03-31
+    rent_psf_yr: 40.00
+    steps: { type: cpi, rates: [0.03, 0.025] }
+    free_rent_months: 4
+    recovery: capped_nnn
+    space_type: office
+    security_deposit: 50000
+  - id: T4
+    tenant: Corner Cafe
+    suite: "100"
+    sf: 5000
+    start: 2020-06-01
+    expiry: 2029-05-31
+    rent_psf_yr: 28.00
+    recovery: { type: modified_gross, lines: [utilities] }
+    space_type: office
+  - id: T5
+    tenant: Summit Partners
+    suite: "500"
+    sf: 18000
+    start: 2023-11-01
+    expiry: 2030-10-31
+    rent_psf_yr: 39.00
+    steps: { type: percent, rate: 0.03 }
+    recovery: { type: gross }
+    space_type: office
+recoveries:
+  capped_nnn: { type: nnn, cap_controllable_pct: 0.05 }
+market:
+  - id: office
+    market_rent_psf_yr: 42.00
+    rent_growth: 0.03
+    renewal_probability: 0.65
+    downtime_months: 6
+    term_months: 60
+    new: { free_rent_months: 6, ti_psf: 60.0, lc_pct: 0.06 }
+    renewal: { free_rent_months: 2, ti_psf: 20.0, lc_pct: 0.03 }
+opex:
+  management_fee_pct: 0.03
+  lines:
+    - { id: taxes, name: Real estate taxes, amount_yr: 1200000, growth: 0.03, recoverable: true }
+    - { id: insurance, name: Insurance, amount_yr: 150000, growth: 0.04, recoverable: true }
+    - { id: cam, name: Common area maintenance, amount_yr: 650000, growth: 0.03, recoverable: true, controllable: true }
+    - { id: utilities, name: Utilities, amount_yr: 400000, growth: 0.035, recoverable: true, controllable: true }
+other_income:
+  - { id: parking, name: Parking, amount_yr: 120000, growth: 0.02 }
+revenue:
+  general_vacancy_pct: 0.05
+  credit_loss_pct: 0.01
+capital:
+  price: 21000000
+  closing_costs: 315000
+  reserves_per_sf_yr: 0.25
+  capex:
+    - { id: lobby, name: Lobby renovation, month: 6, amount: 750000 }
+exit:
+  cap_rate: 0.0675
+  selling_costs_pct: 0.02

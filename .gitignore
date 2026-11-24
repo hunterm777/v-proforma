@@ -1,0 +1,15 @@
+/target
+node_modules/
+web/dist/
+web/src/wasm/
+crates/wasm/pkg/
+crates/wasm/pkg-node/
+__pycache__/
+*.so
+*.pyd
+.venv/
+*.egg-info/
+.pytest_cache/
+fixtures/handcheck/reference/out/
+fixtures/handcheck/spreadsheet/recalc/
+.mypy_cache/

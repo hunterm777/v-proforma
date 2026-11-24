@@ -1,0 +1,36 @@
+# M1 fixture: single-tenant NNN industrial, 10-year hold, all cash.
+# Made-up numbers. Hand-checked in fixtures/handcheck/m1_nnn_industrial.xlsx.
+property:
+  name: M1 Single-Tenant Industrial
+  type: industrial
+  rentable_sf: 250000
+  start_date: 2027-01-01
+  hold_months: 120
+rent_roll:
+  - id: L1
+    tenant: Northfield Supply Co
+    suite: "100"
+    sf: 250000
+    start: 2025-07-01
+    expiry: 2040-06-30
+    rent_psf_yr: 7.25
+    steps: { type: percent, rate: 0.03 }
+    recovery: nnn
+recoveries:
+  nnn: { type: nnn }
+opex:
+  management_fee_pct: 0.03
+  lines:
+    - { id: taxes, name: Real estate taxes, amount_yr: 412500, growth: 0.03, recoverable: true }
+    - { id: insurance, name: Insurance, amount_yr: 87500, growth: 0.04, recoverable: true }
+    - { id: cam, name: Common area maintenance, amount_yr: 150000, growth: 0.03, recoverable: true, controllable: true }
+revenue:
+  general_vacancy_pct: 0.02
+  credit_loss_pct: 0.0
+capital:
+  price: 30750000
+  closing_costs: 461250
+  reserves_per_sf_yr: 0.15
+exit:
+  cap_rate: 0.0625
+  selling_costs_pct: 0.02

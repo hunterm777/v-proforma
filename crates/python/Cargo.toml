@@ -1,0 +1,17 @@
+[package]
+name = "proforma-python"
+description = "Python bindings for proforma"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+name = "_proforma"
+crate-type = ["cdylib"]
+
+[dependencies]
+proforma-core = { path = "../core" }
+pyo3 = { version = "0.23", features = ["extension-module", "abi3-py310"] }

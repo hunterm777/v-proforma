@@ -1,0 +1,20 @@
+[package]
+name = "proforma-core"
+description = "proforma underwriting core: an auditable CRE pro forma."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+serde_norway.workspace = true
+libm.workspace = true
+schemars = { version = "1.2", optional = true }
+
+[features]
+# Generates schema/deal.schema.json (see tests/schema.rs).
+schema = ["dep:schemars"]

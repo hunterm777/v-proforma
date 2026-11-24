@@ -1,0 +1,28 @@
+[build-system]
+requires = ["maturin>=1.7,<2"]
+build-backend = "maturin"
+
+[project]
+# The PyPI name `proforma` is taken, so the distribution is `v-proforma`;
+# the import name is `proforma`.
+name = "v-proforma"
+description = "An auditable CRE pro forma you can version, diff and run anywhere."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dynamic = ["version"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Rust",
+    "Topic :: Office/Business :: Financial",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/hunterm777/v-proforma"
+
+[tool.maturin]
+python-source = "python"
+module-name = "proforma._proforma"
+features = ["pyo3/extension-module"]

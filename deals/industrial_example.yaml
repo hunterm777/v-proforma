@@ -1,0 +1,88 @@
+# Example deal: three-tenant NNN distribution center. Made-up numbers.
+# The equity waterfall is the PRD's five-tier example.
+property:
+  name: Ridgeline Logistics Center
+  type: industrial
+  rentable_sf: 412000
+  start_date: 2027-01-01
+  hold_months: 120
+rent_roll:
+  - id: A1
+    tenant: Coastal Freight
+    suite: "A"
+    sf: 210000
+    start: 2024-04-01
+    expiry: 2031-03-31
+    rent_psf_yr: 8.40
+    steps: { type: percent, rate: 0.035 }
+    recovery: { type: nnn }
+    space_type: industrial
+    security_deposit: 150000
+  - id: A2
+    tenant: Brightway Home Goods
+    suite: "B"
+    sf: 120000
+    start: 2026-02-01
+    expiry: 2036-01-31
+    rent_psf_yr: 9.10
+    steps: { type: fixed, amount_psf_yr: 0.30 }
+    recovery: { type: nnn }
+    space_type: industrial
+  - id: A3
+    tenant: Metro Parts Supply
+    suite: "C"
+    sf: 82000
+    start: 2022-09-01
+    expiry: 2028-08-31
+    rent_psf_yr: 7.65
+    steps: { type: percent, rate: 0.03 }
+    recovery: { type: nnn, cap_controllable_pct: 0.05 }
+    space_type: industrial
+market:
+  - id: industrial
+    market_rent_psf_yr: 9.50
+    rent_growth: 0.035
+    renewal_probability: 0.70
+    downtime_months: 6
+    term_months: 84
+    new: { free_rent_months: 4, ti_psf: 5.00, lc_pct: 0.05 }
+    renewal: { free_rent_months: 1, ti_psf: 1.50, lc_pct: 0.025 }
+opex:
+  management_fee_pct: 0.02
+  lines:
+    - { id: taxes, name: Real estate taxes, amount_yr: 1030000, growth: 0.03, recoverable: true }
+    - { id: insurance, name: Insurance, amount_yr: 206000, growth: 0.04, recoverable: true }
+    - { id: cam, name: Common area maintenance, amount_yr: 370800, growth: 0.03, recoverable: true, controllable: true }
+revenue:
+  general_vacancy_pct: 0.03
+  credit_loss_pct: 0.005
+capital:
+  price: 62000000
+  closing_costs: 930000
+  reserves_per_sf_yr: 0.15
+debt:
+  sizing: { max_ltv: 0.60, min_dscr: 1.30, min_debt_yield: 0.085 }
+  rate: { fixed: 0.0595 }
+  io_months: 36
+  amortization_years: 30
+  origination_fee_pct: 0.0075
+  prepayment_penalty_pct: [0.03, 0.02, 0.01, 0.0]
+exit:
+  cap_rate: 0.0575
+  selling_costs_pct: 0.015
+equity:
+  contributions: { lp: 0.90, gp: 0.10 }
+  tiers:
+    - name: Return of capital
+      split: pro_rata
+    - name: Preferred return
+      hurdle: { type: irr, rate: 0.08, compounding: annual }
+      split: pro_rata
+    - name: GP catch-up
+      split: { lp: 0.0, gp: 1.0 }
+      until: { gp_share_of_profits: 0.20 }
+    - name: Promote 1
+      hurdle: { type: irr, rate: 0.12 }
+      split: { lp: 0.80, gp: 0.20 }
+    - name: Promote 2
+      split: { lp: 0.70, gp: 0.30 }

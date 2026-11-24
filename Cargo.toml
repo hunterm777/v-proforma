@@ -1,0 +1,28 @@
+[workspace]
+members = ["crates/core", "crates/wasm", "crates/python"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/hunterm777/v-proforma"
+rust-version = "1.82"
+
+[workspace.dependencies]
+proforma-core = { path = "crates/core" }
+serde = { version = "1.0", features = ["derive"] }
+# float_roundtrip: inputs parse to the exact double that was written.
+serde_json = { version = "1.0", features = ["float_roundtrip"] }
+serde_norway = "0.9.42"
+libm = "0.2"
+
+[profile.release]
+lto = true
+codegen-units = 1
+
+[profile.wasm]
+inherits = "release"
+opt-level = 3
+panic = "abort"
+strip = "debuginfo"

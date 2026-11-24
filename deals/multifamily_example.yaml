@@ -1,0 +1,90 @@
+# Example deal: 240-unit garden apartment community with a floating-rate loan.
+# Made-up numbers. The equity waterfall is the PRD's five-tier example.
+property:
+  name: Cedar Ridge Apartments
+  type: multifamily
+  units: 240
+  start_date: 2027-01-01
+  hold_months: 60
+unit_mix:
+  - id: 1br
+    name: One bedroom
+    units: 96
+    in_place_rent_mo: 1480
+    market_rent_mo: 1575
+    rent_growth: 0.035
+    loss_to_lease_burn_off_months: 18
+    turnover_rate: 0.45
+    concession_months: 0.5
+  - id: 2br
+    name: Two bedroom
+    units: 120
+    in_place_rent_mo: 1820
+    market_rent_mo: 1925
+    rent_growth: 0.035
+    loss_to_lease_burn_off_months: 18
+    turnover_rate: 0.40
+    concession_months: 0.5
+  - id: 3br
+    name: Three bedroom
+    units: 24
+    in_place_rent_mo: 2250
+    market_rent_mo: 2340
+    rent_growth: 0.03
+    loss_to_lease_burn_off_months: 12
+    turnover_rate: 0.35
+    concession_months: 0.5
+opex:
+  management_fee_pct: 0.03
+  lines:
+    - { id: taxes, name: Real estate taxes, amount_yr: 640000, growth: 0.03, recoverable: false }
+    - { id: insurance, name: Insurance, amount_yr: 216000, growth: 0.05, recoverable: false }
+    - { id: payroll, name: Payroll, amount_yr: 432000, growth: 0.035, recoverable: false }
+    - { id: repairs, name: Repairs and maintenance, amount_yr: 192000, growth: 0.03, recoverable: false }
+    - { id: utilities, name: Utilities, amount_yr: 288000, growth: 0.035, recoverable: false }
+    - { id: admin, name: Marketing and administration, amount_yr: 96000, growth: 0.03, recoverable: false }
+other_income:
+  - { id: utility_reimb, name: Utility reimbursement, amount_yr: 172800, growth: 0.035 }
+  - { id: fees, name: "Parking, pet and other fees", amount_yr: 86400, growth: 0.03 }
+revenue:
+  general_vacancy_pct: 0.05
+  credit_loss_pct: 0.01
+capital:
+  price: 52000000
+  closing_costs: 780000
+  reserves_per_unit_yr: 300
+  capex:
+    - { id: amenity, name: Clubhouse and amenity refresh, month: 8, amount: 900000 }
+debt:
+  sizing: { max_ltv: 0.65, min_dscr: 1.25, min_debt_yield: 0.075 }
+  rate:
+    floating:
+      spread: 0.0250
+      curve:
+        - { month: 1, index: 0.0390 }
+        - { month: 13, index: 0.0360 }
+        - { month: 25, index: 0.0345 }
+        - { month: 37, index: 0.0340 }
+  io_months: 36
+  amortization_years: 30
+  origination_fee_pct: 0.0075
+  prepayment_penalty_pct: [0.01, 0.0]
+exit:
+  cap_rate: 0.0550
+  selling_costs_pct: 0.015
+equity:
+  contributions: { lp: 0.90, gp: 0.10 }
+  tiers:
+    - name: Return of capital
+      split: pro_rata
+    - name: Preferred return
+      hurdle: { type: irr, rate: 0.08, compounding: annual }
+      split: pro_rata
+    - name: GP catch-up
+      split: { lp: 0.0, gp: 1.0 }
+      until: { gp_share_of_profits: 0.20 }
+    - name: Promote 1
+      hurdle: { type: irr, rate: 0.12 }
+      split: { lp: 0.80, gp: 0.20 }
+    - name: Promote 2
+      split: { lp: 0.70, gp: 0.30 }

@@ -1,0 +1,19 @@
+/* Design tokens from the PRD. Dark mode only. */
+:root {
+  --bg: #0b0d10;
+  --surface: #13161b;
+  --border: #22262e;
+  --text: #e6e8eb;
+  --text-2: #8b929c;
+  --profit: #22c55e;
+  --loss: #ef4444;
+  --accent: #3b82f6;
+  --radius: 8px;
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-num: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
